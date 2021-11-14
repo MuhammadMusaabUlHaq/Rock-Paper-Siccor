@@ -19,10 +19,10 @@ function playerSelection() {
 function move(playerSelection, computerSelection) {
     if (computerSelection == playerSelection) {
         displayResults(`Tie game!\n ${computerSelection} tries to beat ${playerSelection}`);
-      } else if (whoWon == false) {
+      } else if (whoWon() == false) {
         computerScore = ++computerScore;
         computerMotivatedResults()
-      } else if(whoWon == true) {
+      } else if(whoWon() == true) {
         playerScore = ++playerScore;
         playerMotivatedResults()
       }
