@@ -1,4 +1,6 @@
-choices = ['Scissor', 'Rock', 'Paper']
+choices = ['Scissors', 'Rock', 'Paper']
+let playerScore = 0
+let computerScore = 0
 
 function randomValueFromArray(array) {
     const random = Math.floor(Math.random()*array.length)
@@ -6,18 +8,97 @@ function randomValueFromArray(array) {
 }
 
 function computerPlay() {
-    return randomValueFromArray(choices)
+    return randomValueFromArray(choices).toLowerCase()
 }
 
 function playerSelection() {
-    let playerChoice = prompt('Rock, Paper, Scissor?').toLowerCase
+    let playerChoice = prompt('Rock, Paper, Scissors?').toLowerCase()
     return playerChoice
 }
 
 function move(playerSelection, computerSelection) {
-    
+    if (computerSelection == playerSelection) {
+        displayResults(`Tie game! ${computerSelection} tries to beat ${playerSelection}`);
+      } else if (
+        (computerSelection == "rock" && playerSelection == "scissors") ||
+        (computerSelection == "scissors" && playerSelection == "paper") ||
+        (computerSelection == "paper" && playerSelection == "rock")
+      ) {
+        computerScore = ++computerScore;
+        if (computerScore === 1) {
+          displayResults(
+            `Oh no! You lost.
+            ${computerSelection} beats ${playerSelection}.`
+          );
+        } else if (computerScore === 2) {
+          displayResults(
+            `Arghh. ${(
+              computerSelection
+            )} beats ${playerSelection}. Give it another shot!`
+          );
+        } else if (computerScore === 3) {
+          displayResults(
+            `${(
+              computerSelection
+            )} beats ${playerSelection}. It's ok. You got this!!`
+          );
+        } else if (computerScore === 4) {
+          displayResults(
+            `Oh no. It's match point!! ${(
+              computerSelection
+            )} beats ${playerSelection}. Don't let us down!`
+          );
+        } else {
+          displayResults(`${computerSelection} beats ${playerSelection}`);
+        }
+      } else if(
+        (playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "paper") ||
+        (playerSelection == "paper" && computerSelection == "rock")
+        ) {
+        playerScore = ++playerScore;
+        if (playerScore === 1) {
+          displayResults(
+            `Lets go!!! You won.
+            ${playerSelection} beats ${computerSelection}.`
+          );
+        } else if (playerScore === 2) {
+          displayResults(
+            `You're pretty good at this. ${
+              playerSelection
+            } beats ${computerSelection}.`
+          );
+        } else if (playerScore === 3) {
+          displayResults(
+            `${
+              playerSelection
+            } beats ${computerSelection}! Has mankind found its savior??`
+          );
+        } else if (playerScore === 4) {
+          displayResults(
+            `${
+              playerSelection
+            } beats ${computerSelection}. One more and you're a hero!`
+          );
+        } else {
+          displayResults(`${playerSelection} beats ${computerSelection}`);
+        }
+      }
+      else {
+        alert('invalid option')
+      }
+    }
+
+
+function displayResults(string) {
+    alert(string)
 }
 
+while (true){
+  move(playerSelection(),computerPlay())
+}
+
+  
 
 
 /**
