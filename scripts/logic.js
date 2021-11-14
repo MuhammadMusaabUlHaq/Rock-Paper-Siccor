@@ -16,18 +16,19 @@ function playerSelection() {
     return playerChoice
 }
 
+
 function move(playerSelection, computerSelection) {
     if (computerSelection == playerSelection) {
         displayResults(`Tie game!\n ${computerSelection} tries to beat ${playerSelection}`);
-      } else if (whoWon() == false) {
+      } else if (whoWon(computerSelection,playerSelection) == false) {
         computerScore = ++computerScore;
-        computerMotivatedResults()
-      } else if(whoWon() == true) {
+        computerMotivatedResults(computerSelection,playerSelection)
+      } else if(whoWon(computerSelection,playerSelection) == true) {
         playerScore = ++playerScore;
-        playerMotivatedResults()
+        playerMotivatedResults(computerSelection,playerSelection)
       }
       else {
-        alert('invalid option')
+        alert('invalid option. Did you type it correctly? (eg scissors, not scissor)')
       }
     }
 
@@ -49,7 +50,7 @@ function whoWon(computerSelection,playerSelection) {
 }
 
 /**a function which does motivational quotes on the number of wins */
-function computerMotivatedResults(params) {
+function computerMotivatedResults(computerSelection,playerSelection) {
   if (computerScore === 1) {
     displayResults(
       `Oh no! You lost.
@@ -78,7 +79,7 @@ function computerMotivatedResults(params) {
   }
 }
 
-function playerMotivatedResults() {
+function playerMotivatedResults(computerSelection,playerSelection) {
   if (playerScore === 1) {
     displayResults(
       `Lets go!!! You won.
