@@ -112,16 +112,41 @@ function displayResults(string) {
     alert(string)
 }
 
-while (true){
-  move(playerSelection(),computerPlay())
-}
 
-  
+
+const scissorButton = document.querySelector('#scissor')
+const rockButton = document.querySelector('#rock')
+const paperButton = document.querySelector('#paper')
+
+/**Add event listeners and style changing */
+function changingStylesAndSelect(btnElement) {
+  btnElement.addEventListener('click', (e)=>{
+    changeStyle(e.target)    
+  })
+}
+changingStylesAndSelect(scissorButton)
+changingStylesAndSelect(paperButton)
+changingStylesAndSelect(rockButton)
+
+function changeStyle(element) {
+  if (element.innerText == 'Rock') {
+    paperButton.classList.remove('target')
+    scissorButton.classList.remove('target')
+    rockButton.classList.add('target')
+  } else if (element.innerText == 'Paper'){
+    rockButton.classList.remove('target')
+    scissorButton.classList.remove('target')
+    paperButton.classList.add('target')
+  }
+  else{
+    rockButton.classList.remove('target')
+    paperButton.classList.remove('target')
+    scissorButton.classList.add('target')
+  }
+}
 
 
 /**
- * Case 1 : Criss Cross
- * Case 2 : straight line
- * if [0][0], [1][1], [2][2] same, then that thing won
- * if [0][2], [1][1], [2][0] same, then that thing won
+ *Add event listener to play button and finally play the game
+ *connect logs with its desired output
  */
