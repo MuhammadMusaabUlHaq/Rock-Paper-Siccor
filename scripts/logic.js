@@ -1,7 +1,7 @@
 choices = ['Scissors', 'Rock', 'Paper']
 let playerScore = 0
 let computerScore = 0
-
+let counter = 0
 function randomValueFromArray(array) {
     const random = Math.floor(Math.random()*array.length)
     return array[random]
@@ -11,10 +11,7 @@ function computerPlay() {
     return randomValueFromArray(choices).toLowerCase()
 }
 
-function playerSelection() {
-    let playerChoice = prompt('Rock, Paper, Scissors?').toLowerCase()
-    return playerChoice
-}
+
 
 
 function move(playerSelection, computerSelection) {
@@ -28,7 +25,7 @@ function move(playerSelection, computerSelection) {
         playerMotivatedResults(computerSelection,playerSelection)
       }
       else {
-        alert('invalid option. Did you type it correctly? (eg scissors, not scissor)')
+        alert('invalid option. Did you type it correctly? (eg scissors, not scissor)\n' + playerSelection +'\n'+computerSelection)
       }
     }
 
@@ -56,19 +53,19 @@ function computerMotivatedResults(computerSelection,playerSelection) {
       `Oh no! You lost.
       ${computerSelection} beats ${playerSelection}.`
     );
-  } else if (computerScore === 2) {
+  } else if (computerScore%3 === 0) {
     displayResults(
       `Arghh. ${(
         computerSelection
       )} beats ${playerSelection}. Give it another shot!`
     );
-  } else if (computerScore === 3) {
+  } else if (computerScore%5 === 0) {
     displayResults(
       `${(
         computerSelection
       )} beats ${playerSelection}. It's ok. You got this!!`
     );
-  } else if (computerScore === 4) {
+  } else if (computerScore%7 === 0) {
     displayResults(
       `Oh no. It's match point!! ${(
         computerSelection
@@ -85,19 +82,19 @@ function playerMotivatedResults(computerSelection,playerSelection) {
       `Lets go!!! You won.
       ${playerSelection} beats ${computerSelection}.`
     );
-  } else if (playerScore === 2) {
+  } else if (playerScore%3 === 0) {
     displayResults(
       `You're pretty good at this. ${
         playerSelection
       } beats ${computerSelection}.`
     );
-  } else if (playerScore === 3) {
+  } else if (playerScore%5 === 0) {
     displayResults(
       `${
         playerSelection
       } beats ${computerSelection}! Has mankind found its savior??`
     );
-  } else if (playerScore === 4) {
+  } else if (playerScore%7 === 0) {
     displayResults(
       `${
         playerSelection
@@ -108,8 +105,14 @@ function playerMotivatedResults(computerSelection,playerSelection) {
   }
 }
 
+/**Takes the log element and displays it in it. */
+let currentLog = document.querySelector('p.current-logs')
 function displayResults(string) {
-    alert(string)
+    currentLog.innerText = ''
+    currentLogAnimation(currentLog)
+    currentLog = document.querySelector('.current-logs')
+    currentLog.innerText = string
+
 }
 
 
@@ -145,8 +148,45 @@ function changeStyle(element) {
   }
 }
 
+playButton = document.querySelector('#play')
+playButton.addEventListener('click', (e)=>{
+  playerChoice = document.querySelector('.target').innerText.toLowerCase()
+  computerChoice = computerPlay()
+  move(playerChoice, computerChoice)
+  counter += 1
+  addToConsoleLog()
+})
 
-/**
- *Add event listener to play button and finally play the game
- *connect logs with its desired output
- */
+function currentLogAnimation(currentLogDocumentSelector) {
+  if (counter!=0){
+    currentLogDocumentSelector.remove()
+    const currentLog = document.createElement("p");
+    const text = document.createTextNode(".");
+    currentLog.appendChild(text);
+
+    const currentLogDiv = document.querySelector(".current-log");
+    currentLogDiv.appendChild(currentLog);
+    currentLog.classList.add('slideOutIn', 'current-logs')  
+  } else {
+    currentLogDocumentSelector.classList.add('slideIn')  
+    
+  }
+}
+
+/**Full console creation */
+
+
+
+function addToConsoleLog(params) {
+  consoleLog = document.querySelector('.log')
+
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  const nextLog = document.createElement("p");
+  const text = document.createTextNode(today + ': '+currentLog.innerText + '    ' + `Computer score : ${computerScore}    Player Score : ${playerScore}`);
+  nextLog.appendChild(text);
+
+  consoleLog.appendChild(nextLog)
+}
+

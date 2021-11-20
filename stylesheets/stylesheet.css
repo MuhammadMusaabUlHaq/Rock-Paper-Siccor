@@ -10,6 +10,7 @@ body{
     border: 10px solid #453F37;
     color: #403B33;
     padding: 70px;
+    border-top: 25px solid #807566;
 }
 .game{
     display: flex;
@@ -75,3 +76,39 @@ body{
 #play{
     padding: 5px;
 }
+
+/**Animations for grace entry and exit of current log*/
+
+@keyframes slideIn {
+    0% {margin-left: 1500px;}
+    50% {margin-left: 900px;}
+    70% {margin-left: 300px;}
+    100% {margin-left: 0px;}
+}
+
+@keyframes slideOutIn {
+    0% {margin-left: -300px;}
+    20% {margin-left: -900px;}
+    35% {margin-left: -3500px;}
+    40%  {margin-top: -1000px;}
+    60% {margin-top: -1000px;}
+    50% {margin-left: 1500px;}
+    70% {margin-left: 900px;}
+    85% {margin-left: 300px;}
+    100% {margin-left: 0px;}
+}
+
+.slideIn{
+    animation-name: slideIn;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.slideOutIn{
+    animation-name: slideOutIn;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+/**Player Score display and Computer score*/
+
